@@ -1,0 +1,116 @@
+1 - L'ordinateur ne comprend pas directement une phrase parce qu'il ne comprend pas le langage humain. 
+Il ne manipule que des données numériques. Pour lui, un texte est simplement une suite de caractères sans signification.
+2 - Le NLP est un domaine de l'intelligence artificielle qui développe des techniques permettant aux ordinateurs de comprendre, analyser et manipuler le langage humain. 
+Une de ces techniques consiste à transformer le texte en nombres afin qu'il puisse être utilisé par des algorithmes de Machine Learning.
+
+BAG OF WORDS :
+1 - Vocabulary : mots unique presents dans une data set 
+2 - Tableau de tweets 
+Tweet | cats | dogs | are | cute 
+        1       0       1       1
+--> si un mot dun tweet exsite on pose 1 si non 0
+- Limite de Bag of words c'est que c'est limite , il ne comprend pas la
+relation entre les mots , il reponds juste a cette question (Quels mots sont présents?)
+- Ici ou parvient n-grams pour resoudre ce probleme
+- Sparse Matrix : Matrice remplie de 0
+- Le Bag of Words a plusieurs limites :
+-> énormément de colonnes ;
+-> beaucoup de zéros (sparse matrix) ;
+-> tous les mots ont la même importance ;
+-> il ignore l'ordre des mots.
+TEXTE
+   │
+   ▼
+Comprendre les données
+   │
+   ▼
+Préprocessing
+   │
+   ▼
+Bag of Words
+   │
+   ▼
+Problème : trop de mots communs
+   │
+   ▼
+TF-IDF
+   │
+   ▼
+Problème : ne comprend pas l'ordre des mots
+   │
+   ▼
+N-grams
+   │
+   ▼
+Problème : représentation du texte
+   │
+   ▼
+Cosine Similarity
+   │
+   ▼
+Machine Learning
+   │
+   ▼
+Évaluation
+
+- Creation du virtual environnement
+-> python3.13 -m venv venv 
+python qui installe
+-m execute module
+venv nom du module
+venv nom du dossier
+
+- Activer venv
+source venv/bin/activate
+
+
+                    PROJECT TWEETS
+                         │
+                         ▼
+              1. DATASET / EDA
+                         │
+                         ▼
+              2. PREPROCESSING
+                         │
+             ┌───────────┴───────────┐
+             ▼                       ▼
+       Texte nettoyé          Différentes versions
+                                     │
+                                     ▼
+              3. VECTORIZATION
+                    │
+          ┌─────────┼─────────┐
+          ▼         ▼         ▼
+        BoW       TF-IDF    N-grams
+          │         │         │
+          └─────────┼─────────┘
+                    ▼
+              4. SIMILARITY
+                    │
+              Cosine Similarity
+                    │
+                    ▼
+          Top 10 tweets similaires
+                    │
+                    ▼
+              5. CLASSIFICATION
+                    │
+          ┌─────────┼─────────┐
+          ▼         ▼         ▼
+       Model 1   Model 2   Model 3
+          │         │         │
+          └─────────┼─────────┘
+                    ▼
+              6. EVALUATION
+                    │
+                    ▼
+              Accuracy ≥ 0.832
+                    │
+                    ▼
+              7. IMPROVEMENT
+                    │
+                    ▼
+               BONUS
+              Word2Vec
+Preprocessing prepares and cleans the textual data, 
+while vectorization converts the processed text into numerical representations that machine-learning algorithms can use.

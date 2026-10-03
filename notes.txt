@@ -114,3 +114,42 @@ source venv/bin/activate
               Word2Vec
 Preprocessing prepares and cleans the textual data, 
 while vectorization converts the processed text into numerical representations that machine-learning algorithms can use.
+
+TF-IDF donne un poids à chaque mot.
+Il combine deux idées :
+
+1. TF — Term Frequency
+
+À quel point ce mot est présent dans ce tweet ?
+
+Si love apparaît plusieurs fois dans un tweet, son TF augmente.
+
+2. IDF — Inverse Document Frequency
+
+Est-ce que ce mot est rare ou présent partout dans les tweets ?
+
+Si un mot apparaît dans presque tous les tweets, il est moins intéressant → son poids diminue.
+
+Si un mot apparaît dans très peu de tweets, il est plus discriminant → son poids augmente.
+
+
+
+
+We tested 18 different preprocessing configurations 
+and 3 text vectorization methods, giving us 54 combinations. 
+For each combination, we split the data into training and test 
+sets. We then trained a Logistic Regression model and used 
+GridSearchCV with 5-fold cross-validation to find the best 
+value of C. Finally, we evaluated the best model on the 
+unseen test set using Accuracy, 
+Precision, Recall, F1-score and multiclass AUC.
+
+
+Logistic Regression
+→ predict_proba()
+→ AUC
+
+Linear SVM
+→ decision_function()
+→ softmax()
+→ AUC

@@ -1,155 +1,87 @@
-1 - L'ordinateur ne comprend pas directement une phrase parce qu'il ne comprend pas le langage humain. 
-Il ne manipule que des données numériques. Pour lui, un texte est simplement une suite de caractères sans signification.
-2 - Le NLP est un domaine de l'intelligence artificielle qui développe des techniques permettant aux ordinateurs de comprendre, analyser et manipuler le langage humain. 
-Une de ces techniques consiste à transformer le texte en nombres afin qu'il puisse être utilisé par des algorithmes de Machine Learning.
-
-BAG OF WORDS :
-1 - Vocabulary : mots unique presents dans une data set 
-2 - Tableau de tweets 
-Tweet | cats | dogs | are | cute 
-        1       0       1       1
---> si un mot dun tweet exsite on pose 1 si non 0
-- Limite de Bag of words c'est que c'est limite , il ne comprend pas la
-relation entre les mots , il reponds juste a cette question (Quels mots sont présents?)
-- Ici ou parvient n-grams pour resoudre ce probleme
-- Sparse Matrix : Matrice remplie de 0
-- Le Bag of Words a plusieurs limites :
--> énormément de colonnes ;
--> beaucoup de zéros (sparse matrix) ;
--> tous les mots ont la même importance ;
--> il ignore l'ordre des mots.
-TEXTE
-   │
-   ▼
-Comprendre les données
-   │
-   ▼
-Préprocessing
-   │
-   ▼
-Bag of Words
-   │
-   ▼
-Problème : trop de mots communs
-   │
-   ▼
-TF-IDF
-   │
-   ▼
-Problème : ne comprend pas l'ordre des mots
-   │
-   ▼
-N-grams
-   │
-   ▼
-Problème : représentation du texte
-   │
-   ▼
-Cosine Similarity
-   │
-   ▼
-Machine Learning
-   │
-   ▼
-Évaluation
-
-- Creation du virtual environnement
--> python3.13 -m venv venv 
-python qui installe
--m execute module
-venv nom du module
-venv nom du dossier
-
-- Activer venv
-source venv/bin/activate
+"First, we prepared the dataset and created 18 different preprocessing versions. Then we transformed the tweets into numerical vectors using Count BOW, Binary BOW and TF-IDF.
+For the similarity part, we used cosine similarity to find the top-10 most similar tweet pairs for each preprocessing dataset.
+For sentiment classification, we split the data into 80% training and 20% test data using stratification. We trained Logistic Regression, Linear SVM and Multinomial Naive Bayes models on the different datasets and vectorizations.
+We used GridSearchCV with 5-fold cross-validation to find the best hyperparameters. Finally, we evaluated the models using accuracy, AUC, precision, recall and F1-score, and compared their performances.
+Our best configuration was Logistic Regression with D1 and Binary BOW, achieving about 90.9% accuracy and 0.979 AUC."
 
 
-                    PROJECT TWEETS
+
+Pourquoi utilise-t-on cosine similarity ?
+→ Pour mesurer la similarité entre deux tweets vectorisés.
+
+Quelle est la différence entre cosine similarity et classification ?
+→ Similarité = comparer deux tweets ; classification = prédire leur sentiment.
+
+Pourquoi séparer train et test ?
+→ Pour évaluer le modèle sur des données qu'il n'a pas vues pendant l'apprentissage.
+
+Pourquoi GridSearchCV ?
+→ Pour chercher automatiquement les meilleurs hyperparamètres.
+
+Qu'est-ce que l'accuracy ?
+→ Proportion de prédictions correctes.
+
+Pourquoi utiliser F1-score ?
+→ Pour équilibrer precision et recall et regarder les performances par classe.
+
+Qu'est-ce que l'AUC ?
+→ Une mesure de la capacité du modèle à distinguer/séparer les classes à partir de ses scores.
+
+Quel est notre meilleur modèle ?
+→ Logistic Regression + D1 + Binary BOW, accuracy ≈ 0.909, AUC ≈ 0.979.
+
+
+                    DATASET
+                       │
+                       ▼
+              3 CSV POS/NEG/NEUTRAL
+                       │
+                       ▼
+                   MERGING
+                       │
+                       ▼
+                 PREPROCESSING
+                       │
+                 ┌─────┴─────┐
+                 │           │
+                 ▼           ▼
+              D1 → D18    DATASET
+                 │
+                 ▼
+              VECTORIZATION
+          ┌──────┼───────┐
+          ▼      ▼       ▼
+        Count  Binary  TF-IDF
+          │      │       │
+          └──────┼───────┘
+                 │
+        ┌────────┴────────┐
+        │                 │
+        ▼                 ▼
+ COSINE SIMILARITY     MACHINE LEARNING
+        │                 │
+        ▼          ┌──────┼──────┐
+   TOP-10 PAIRS    ▼      ▼      ▼
+                  LR     SVM     NB
                          │
                          ▼
-              1. DATASET / EDA
+                    GRIDSEARCH
                          │
                          ▼
-              2. PREPROCESSING
+                  BEST HYPERPARAMETER
                          │
-             ┌───────────┴───────────┐
-             ▼                       ▼
-       Texte nettoyé          Différentes versions
-                                     │
-                                     ▼
-              3. VECTORIZATION
-                    │
-          ┌─────────┼─────────┐
-          ▼         ▼         ▼
-        BoW       TF-IDF    N-grams
-          │         │         │
-          └─────────┼─────────┘
-                    ▼
-              4. SIMILARITY
-                    │
-              Cosine Similarity
-                    │
-                    ▼
-          Top 10 tweets similaires
-                    │
-                    ▼
-              5. CLASSIFICATION
-                    │
-          ┌─────────┼─────────┐
-          ▼         ▼         ▼
-       Model 1   Model 2   Model 3
-          │         │         │
-          └─────────┼─────────┘
-                    ▼
-              6. EVALUATION
-                    │
-                    ▼
-              Accuracy ≥ 0.832
-                    │
-                    ▼
-              7. IMPROVEMENT
-                    │
-                    ▼
-               BONUS
-              Word2Vec
-Preprocessing prepares and cleans the textual data, 
-while vectorization converts the processed text into numerical representations that machine-learning algorithms can use.
-
-TF-IDF donne un poids à chaque mot.
-Il combine deux idées :
-
-1. TF — Term Frequency
-
-À quel point ce mot est présent dans ce tweet ?
-
-Si love apparaît plusieurs fois dans un tweet, son TF augmente.
-
-2. IDF — Inverse Document Frequency
-
-Est-ce que ce mot est rare ou présent partout dans les tweets ?
-
-Si un mot apparaît dans presque tous les tweets, il est moins intéressant → son poids diminue.
-
-Si un mot apparaît dans très peu de tweets, il est plus discriminant → son poids augmente.
-
-
-
-
-We tested 18 different preprocessing configurations 
-and 3 text vectorization methods, giving us 54 combinations. 
-For each combination, we split the data into training and test 
-sets. We then trained a Logistic Regression model and used 
-GridSearchCV with 5-fold cross-validation to find the best 
-value of C. Finally, we evaluated the best model on the 
-unseen test set using Accuracy, 
-Precision, Recall, F1-score and multiclass AUC.
-
-
-Logistic Regression
-→ predict_proba()
-→ AUC
-
-Linear SVM
-→ decision_function()
-→ softmax()
-→ AUC
+                         ▼
+                     PREDICTION
+                         │
+                         ▼
+              ┌──────────┼──────────┐
+              ▼          ▼          ▼
+          Accuracy      AUC      Macro F1
+              │          │          │
+              └──────────┼──────────┘
+                         ▼
+                   COMPARISON
+                         │
+                         ▼
+              🏆 BEST MODEL
+           LR + D1 + Binary BOW
